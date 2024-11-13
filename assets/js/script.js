@@ -21,12 +21,12 @@ const handleOnMove = e => {
   
   track.animate({
     transform: `translate(${nextPercentage}%, -50%)`
-  }, { duration: 1200, fill: "forwards" });
+  }, { duration: 1200, fill: "forwards",easing: 'ease-out' });
   
   for(const image of track.getElementsByClassName("image")) {
     image.animate({
       objectPosition: `${100 + nextPercentage}% center`
-    }, { duration: 1200, fill: "forwards" });
+    }, { duration: 1200, fill: "forwards", });
   }
 }
 
@@ -43,3 +43,38 @@ window.ontouchend = e => handleOnUp(e.touches[0]);
 window.onmousemove = e => handleOnMove(e);
 
 window.ontouchmove = e => handleOnMove(e.touches[0]);
+
+let nextPercentage = 0; // Initialize nextPercentage value
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowRight') {
+        const fixedAmount = -3; // Adjust the fixed amount for desired movement
+        const nextPercentageUnconstrained = nextPercentage + fixedAmount;
+        nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
+
+        // Perform actions using the updated nextPercentage value
+        console.log("Next Percentage:", nextPercentage);
+        
+        // Add your animation or other actions here
+        track.animate({
+          transform: `translate(${nextPercentage}%, -50%)`
+        }, { duration: 1200, fill: "forwards",easing: 'ease-out' });
+      }
+    }
+);
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'ArrowLeft') {
+      const fixedAmount = 3; // Adjust the fixed amount for desired movement
+      const nextPercentageUnconstrained = nextPercentage + fixedAmount;
+      nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
+
+      // Perform actions using the updated nextPercentage value
+      console.log("Next Percentage:", nextPercentage);
+      
+      // Add your animation or other actions here
+      track.animate({
+        transform: `translate(${nextPercentage}%, -50%)`
+      }, { duration: 1200, fill: "forwards",easing: 'ease-out' });
+    }
+  }
+);
